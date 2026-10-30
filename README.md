@@ -2,11 +2,13 @@
 
 Neon games to play with a friend, right in the browser. No app, no sign-up, no server: players connect peer-to-peer.
 
+**Play:** https://0xruangsak.github.io/pocketneon/
+
 **Games**
 
 | Game | Players | Folder |
 |---|---|---|
-| Texas Hold'em | 1 v 1 online | [`games/holdem`](games/holdem) |
+| [Texas Hold'em](https://0xruangsak.github.io/pocketneon/games/holdem/) | 1 v 1 online | [`games/holdem`](games/holdem) |
 
 ## Texas Hold'em
 
