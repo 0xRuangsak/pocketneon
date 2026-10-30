@@ -190,8 +190,7 @@ function cardHTML(card, { key, cls = '', delay = 0 } = {}) {
   }
   if (!card) return `<div class="card back ${cls}${anim}"></div>`;
   const rank = card[0] === 'T' ? '10' : card[0];
-  const red = card[1] === 'h' || card[1] === 'd' ? 'red' : '';
-  return `<div class="card ${red} ${cls}${anim}" aria-label="${rank}${SUIT[card[1]]}"><b>${rank}</b><i>${SUIT[card[1]]}</i></div>`;
+  return `<div class="card suit-${card[1]} ${cls}${anim}" aria-label="${rank}${SUIT[card[1]]}"><b>${rank}</b><i>${SUIT[card[1]]}</i></div>`;
 }
 
 const ACTION_LABEL = { fold: 'Fold', check: 'Check', call: 'Call', bet: 'Bet', raise: 'Raise', allin: 'All-in' };
@@ -258,6 +257,8 @@ function render(v, rematch = [false, false]) {
     $(el).className = `seat ${seat === me ? 'me' : 'opp'} ${v.players[seat].folded ? 'folded' : ''}`;
     $(el).innerHTML = seatHTML(v, seat, win);
   }
+  // The table lights up once there's money on it.
+  document.querySelector('.felt-area').classList.toggle('on', v.pot + v.players.reduce((a, p) => a + p.bet, 0) > 0);
   $('bet-me').textContent = v.players[me].bet ? fmt(v.players[me].bet) : '';
   $('bet-opp').textContent = v.players[opp].bet ? fmt(v.players[opp].bet) : '';
 
@@ -320,8 +321,8 @@ function renderActions(v) {
     ? '<button class="btn" data-act="check">Check</button>'
     : `<button class="btn" data-act="call">${callAll ? 'All-in' : 'Call'} ${fmt(l.toCall)}</button>`;
   const raiseBtn = l.canRaise
-    ? `<button class="btn lime" data-act="open-raise">${l.isBet ? 'Bet' : 'Raise'}</button>`
-    : '<button class="btn lime" disabled>Raise</button>';
+    ? `<button class="btn primary" data-act="open-raise">${l.isBet ? 'Bet' : 'Raise'}</button>`
+    : '<button class="btn primary" disabled>Raise</button>';
 
   let raiseBox = '';
   if (app.raise && l.canRaise) {
@@ -342,8 +343,8 @@ function renderActions(v) {
 
   const row = app.raise
     ? `<div class="row"><button class="btn ghost" data-act="close-raise">Back</button>
-         <button class="btn lime" data-act="raise" style="grid-column: span 2">${l.isBet ? 'Bet' : 'Raise to'} ${fmt(app.raise.to)}</button></div>`
-    : `<div class="row"><button class="btn pink" data-act="fold">Fold</button>${middle}${raiseBtn}</div>`;
+         <button class="btn primary" data-act="raise" style="grid-column: span 2">${l.isBet ? 'Bet' : 'Raise to'} ${fmt(app.raise.to)}</button></div>`
+    : `<div class="row"><button class="btn" data-act="fold">Fold</button>${middle}${raiseBtn}</div>`;
 
   el.innerHTML = raiseBox + row;
 }
@@ -373,8 +374,8 @@ function gameOverModal(v, rematch) {
   modal(`
     <h2 class="${youWon ? 'win' : 'lose'}">${youWon ? 'You win!' : `${esc(opp)} wins`}</h2>
     <p>${youWon ? `You took all the chips in ${v.handNo} hands.` : `Knocked out after ${v.handNo} hands.`}</p>
-    ${oppWants ? `<p style="color:var(--lime)">${esc(opp)} wants a rematch!</p>` : ''}
-    <button id="m-rematch" class="btn lime block" ${waitingOnOpp ? 'disabled' : ''}>${waitingOnOpp ? `Waiting for ${esc(opp)}…` : 'Rematch'}</button>
+    ${oppWants ? `<p class="lit">${esc(opp)} wants a rematch!</p>` : ''}
+    <button id="m-rematch" class="btn primary block" ${waitingOnOpp ? 'disabled' : ''}>${waitingOnOpp ? `Waiting for ${esc(opp)}…` : 'Rematch'}</button>
     <button id="m-leave" class="btn ghost block">Leave table</button>`,
   { 'm-rematch': sendRematch, 'm-leave': () => resetSession() });
 }
@@ -440,5 +441,5 @@ const joinCode = normalizeCode(new URLSearchParams(location.hash.slice(1)).get('
 if (joinCode) {
   $('code').value = joinCode;
   if ($('name').value) joinTable(joinCode);
-  else { $('lobby-msg').textContent = ''; $('name').focus(); $('join').classList.add('lime'); }
+  else { $('lobby-msg').textContent = ''; $('name').focus(); $('join').classList.add("primary"); }
 }
