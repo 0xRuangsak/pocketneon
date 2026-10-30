@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0e0f">
+  <title>Pocket Neon</title>
+  <meta name="description" content="Games to play with a friend, right in your browser.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=DM+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="shared/theme.css">
+  <style>
+    .top {
+      position: sticky; top: 0; z-index: 10; padding-top: env(safe-area-inset-top);
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+      backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-bottom: 1px solid color-mix(in srgb, var(--rule) 70%, transparent);
+    }
+    .top-in { max-width: 1072px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--strong); text-decoration: none; font: 500 13px var(--label); letter-spacing: 0.14em; text-transform: uppercase; }
+    .brand svg { width: 20px; height: 20px; filter: drop-shadow(0 0 4px rgba(255, 209, 102, 0.45)) drop-shadow(0 0 10px rgba(255, 209, 102, 0.2)); }
+
+    main { max-width: 1072px; margin: 0 auto; padding: 0 16px 64px; }
+    .hero { padding: 56px 0 40px; max-width: 620px; }
+    .hero .label { margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(34px, 6vw, 48px); line-height: 1.08; margin-bottom: 16px; text-wrap: balance; }
+    .hero p { margin: 0; max-width: 46ch; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; border-top: 1px solid var(--rule); padding-top: 32px; }
+    .game { display: block; text-decoration: none; color: inherit; }
+    .game .fig {
+      border-radius: 10px; overflow: hidden; background: var(--panel); aspect-ratio: 4 / 3;
+      display: grid; place-items: center; transition: background 0.5s;
+    }
+    .game .fig svg { width: 86%; height: auto; overflow: visible; }
+    a.game:hover .fig { background: radial-gradient(ellipse 55% 50% at 50% 50%, rgba(255, 209, 102, 0.11), transparent 72%) var(--panel); }
+    .game h2 { font-size: 18px; margin: 14px 0 4px; letter-spacing: -0.01em; }
+    .game p { margin: 0; color: var(--muted); font-size: 15px; }
+    .game .label { margin-top: 10px; }
+    .game .label i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); margin-right: 8px; vertical-align: 1px; }
+    .game.soon { opacity: 0.5; }
+
+    /* Figure strokes */
+    .s { fill: var(--body); stroke: var(--line); stroke-width: 1; stroke-linejoin: round; }
+    .s.top { fill: var(--deck); }
+    .s.dark { fill: var(--recess); }
+    .d { fill: none; stroke: var(--detail); stroke-width: 1; }
+    .lit { fill: #1d1712; stroke: var(--accent); stroke-width: 1; filter: drop-shadow(0 0 4px rgba(255, 209, 102, 0.55)) drop-shadow(0 0 12px rgba(255, 209, 102, 0.25)); }
+    .ink { fill: var(--accent); font: 500 9px var(--label); letter-spacing: 0.1em; }
+    .eng { fill: var(--ink); font: 500 6px var(--label); letter-spacing: 0.18em; }
+
+    footer { max-width: 1072px; margin: 0 auto; padding: 24px 16px 40px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-in">
+      <a class="brand" href="./">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1 18 5.5v9L10 19 2 14.5v-9Z" fill="none" stroke="#ffd166" stroke-width="1.4"/><path d="M2 5.5 10 10l8-4.5M10 10v9" fill="none" stroke="#ffd166" stroke-width="1.4"/></svg>
+        Pocket Neon
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="label">Games for two · in the browser</p>
+      <h1>Pull up a seat. The table is <em>lit</em>.</h1>
+      <p>Pick a game, send the link to a friend, and play. No app, no sign-up — your browsers talk to each other directly.</p>
+    </section>
+
+    <section class="grid">
+      <a class="game" href="games/holdem/">
+        <div class="fig">
+          <!-- Fine-line isometric card table -->
+          <svg viewBox="0 0 320 200" role="img" aria-label="Isometric card table with two glowing cards">
+            <!-- slab sides -->
+            <path class="s dark" d="M40 100 L160 160 L280 100 L280 112 L160 172 L40 112 Z"/>
+            <path class="d" d="M160 160 V172"/>
+            <!-- top face -->
+            <path class="s top" d="M160 40 L280 100 L160 160 L40 100 Z"/>
+            <path class="d" d="M160 52 L256 100 L160 148 L64 100 Z"/>
+            <path class="d" d="M160 58 L244 100 L160 142 L76 100 Z" stroke-dasharray="3 3"/>
+            <!-- board cards, face down -->
+            <g class="s">
+              <path d="M118 96 l14 7 l-10 5 l-14 -7 Z"/>
+              <path d="M138 106 l14 7 l-10 5 l-14 -7 Z"/>
+              <path d="M178 82 l14 7 l-10 5 l-14 -7 Z"/>
+            </g>
+            <!-- two lit hole cards -->
+            <path class="lit" d="M168 112 l22 11 l-15 7.5 l-22 -11 Z"/>
+            <path class="lit" d="M192 104 l22 11 l-15 7.5 l-22 -11 Z"/>
+            <!-- chip stacks -->
+            <g class="s">
+              <ellipse cx="120" cy="124" rx="9" ry="4.5"/>
+              <path d="M111 124 v-4 a9 4.5 0 0 0 18 0 v4"/>
+              <ellipse cx="120" cy="120" rx="9" ry="4.5"/>
+              <ellipse cx="136" cy="134" rx="9" ry="4.5"/>
+            </g>
+            <ellipse class="lit" cx="214" cy="84" rx="7" ry="3.5"/>
+            <text class="eng" x="160" y="186" text-anchor="middle">HOLD'EM · NO LIMIT</text>
+          </svg>
+        </div>
+        <h2>Texas Hold'em</h2>
+        <p>Heads-up tournament. 10,000 chips, blinds keep rising.</p>
+        <p class="label"><i></i>1 v 1 online</p>
+      </a>
+
+      <div class="game soon" aria-disabled="true">
+        <div class="fig">
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <path class="s dark" d="M70 100 L160 145 L250 100 L250 110 L160 155 L70 110 Z"/>
+            <path class="s top" d="M160 55 L250 100 L160 145 L70 100 Z"/>
+            <path class="d" d="M115 77.5 L205 122.5 M205 77.5 L115 122.5"/>
+          </svg>
+        </div>
+        <h2>Next game</h2>
+        <p>More games coming, one at a time.</p>
+        <p class="label">Soon</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>Pocket Neon · games play peer-to-peer, straight between your browsers.</footer>
+</body>
+</html>
