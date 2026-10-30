@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#07060f">
+  <title>Texas Hold'em · Pocket Neon</title>
+  <meta name="description" content="Heads-up Texas Hold'em with a friend, in neon.">
+  <link rel="stylesheet" href="../../shared/theme.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Lobby -->
+  <section id="lobby" class="screen center-screen">
+    <a class="back" href="../../">← Pocket Neon</a>
+    <h1 class="logo title"><span class="a">TEXAS</span><br><span class="b">HOLD'EM</span></h1>
+    <p class="muted rules">1 v 1 · 10,000 chips · blinds 100/200, up every 8 hands</p>
+    <div class="panel form">
+      <label class="field">
+        <span>Your name</span>
+        <input id="name" class="input" maxlength="14" autocomplete="nickname" placeholder="Player">
+      </label>
+      <button id="create" class="btn block">Create table</button>
+      <div class="or"><span>or join a friend</span></div>
+      <div class="join-row">
+        <input id="code" class="input code" maxlength="8" placeholder="CODE" autocapitalize="characters" autocomplete="off" spellcheck="false">
+        <button id="join" class="btn pink">Join</button>
+      </div>
+      <p id="lobby-msg" class="msg" role="alert"></p>
+    </div>
+  </section>
+
+  <!-- Host waiting for a friend -->
+  <section id="waiting" class="screen center-screen" hidden>
+    <p class="muted">Table code</p>
+    <div id="wait-code" class="big-code">·····</div>
+    <div class="panel form">
+      <button id="share" class="btn block">Share invite link</button>
+      <button id="copy-code" class="btn ghost block">Copy code</button>
+    </div>
+    <p id="wait-status" class="pulse">Opening table…</p>
+    <button id="cancel" class="btn ghost">Cancel</button>
+  </section>
+
+  <!-- Guest connecting -->
+  <section id="connecting" class="screen center-screen" hidden>
+    <p class="pulse">Joining table <b id="join-code"></b>…</p>
+    <button id="cancel-join" class="btn ghost">Cancel</button>
+  </section>
+
+  <!-- Table -->
+  <section id="table" class="screen" hidden>
+    <header class="topbar">
+      <button id="leave" class="icon-btn" aria-label="Leave table">✕</button>
+      <div class="level"><b id="level"></b><span id="blinds"></span></div>
+      <div id="next-level" class="next-level"></div>
+    </header>
+
+    <div id="seat-opp" class="seat opp"></div>
+
+    <div class="felt-area">
+      <div class="felt" aria-hidden="true"></div>
+      <div id="bet-opp" class="bet opp"></div>
+      <div class="center">
+        <div id="pot" class="pot"></div>
+        <div id="board" class="board"></div>
+        <div id="banner" class="banner"></div>
+      </div>
+      <div id="bet-me" class="bet me"></div>
+    </div>
+
+    <div id="seat-me" class="seat me"></div>
+
+    <footer id="actions" class="actions"></footer>
+  </section>
+
+  <div id="modal" class="modal" hidden>
+    <div id="modal-box" class="panel modal-box" role="dialog" aria-modal="true"></div>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
